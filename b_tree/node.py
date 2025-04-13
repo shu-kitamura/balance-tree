@@ -1,6 +1,7 @@
-from typing import TypeVar, Generic
+from typing import Generic, TypeVar
 
 T = TypeVar("T")
+
 
 class LeafNode(Generic[T]):
     """A class representing a leaf node in a B-tree."""

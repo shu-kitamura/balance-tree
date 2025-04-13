@@ -5,14 +5,14 @@ T = TypeVar("T")
 class LeafNode(Generic[T]):
     """A class representing a leaf node in a B-tree."""
 
-    def __init__(self, min: int):
+    def __init__(self, min: int) -> None:
         self.kv_pairs: dict[T, int] = {}
         self.min_num_keys: int = min  # The minimum number of keys in the node.
 
-    def __str__(self):
-        return f"LeafNode(is_leaf={self.is_leaf}, keys={self.keys}, num_keys={self.num_keys})"
+    def __str__(self) -> str:
+        return f"LeafNode({self.kv_pairs}, min_num_keys={self.min_num_keys})"
 
-    def insert(self, key: T, value: int):
+    def insert(self, key: T, value: int) -> None:
         """Insert a key-value pair into the leaf node."""
 
         self.kv_pairs[key] = value

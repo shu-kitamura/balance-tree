@@ -21,3 +21,7 @@ class LeafNode(Generic[T]):
         if len(self.kv_pairs) > self.max_num_keys:
             # self.split()
             pass
+
+    def get(self, key: T) -> int | None:
+        """Get the value associated with a key in the leaf node."""
+        return self.kv_pairs.get(key, None)

@@ -38,3 +38,7 @@ class LeafNode(Generic[T]):
             if kv_pair.key == key:
                 return kv_pair.value
         return None
+
+    def keys(self) -> list[T]:
+        """Get the keys in the leaf node."""
+        return [kv_pair.key for kv_pair in self.kv_pairs]

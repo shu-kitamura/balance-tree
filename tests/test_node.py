@@ -36,3 +36,34 @@ def test_node_insert_to_leaf():
     assert len(node.items) == 3
     item = node.items[1]
     assert (item.key, item.value) == (5, 300)
+
+
+def test_node_insert_to_non_leaf():
+    node = Node(3, False)
+    node.items.append(KeyValuePair(1, 10))
+    node.items.append(KeyValuePair(10, 100))
+    node.items.append(KeyValuePair(20, 200))
+
+    leaf_node1 = Node(3, True)
+    leaf_node1.items.append(KeyValuePair(3, 30))
+    leaf_node1.items.append(KeyValuePair(7, 70))
+
+    leaf_node2 = Node(3, True)
+    leaf_node2.items.append(KeyValuePair(12, 120))
+    leaf_node2.items.append(KeyValuePair(17, 170))
+
+    node.children.append(leaf_node1)
+    node.children.append(leaf_node2)
+
+    node.insert(KeyValuePair(5, 50))
+    node.insert(KeyValuePair(15, 150))
+
+    child = node.children[0]  # should be leaf_node1
+    assert len(child.items) == 3
+    item = child.items[1]
+    assert (item.key, item.value) == (5, 50)
+
+    child = node.children[1]  # should be leaf_node2
+    assert len(child.items) == 3
+    item = child.items[1]
+    assert (item.key, item.value) == (15, 150)

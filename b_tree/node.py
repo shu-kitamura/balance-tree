@@ -29,8 +29,7 @@ class Node(Generic[T]):
         if self.is_leaf:
             self.__insert_to_leaf(kv_pair)
         else:
-            # TODO: Implement the logic for inserting into a non-leaf node.
-            pass
+            self.__insert_to_non_leaf(kv_pair)
 
     def __insert_to_leaf(self, kv_pair: KeyValuePair[T]) -> None:
         """Insert a key-value pair into a leaf node."""
@@ -39,3 +38,10 @@ class Node(Generic[T]):
             i -= 1
 
         self.items.insert(i + 1, kv_pair)
+
+    def __insert_to_non_leaf(self, kv_pair: KeyValuePair[T]) -> None:
+        """Insert a key-value pair into a non-leaf node."""
+        i = len(self.items) - 1
+        while i >= 0 and kv_pair.key < self.items[i].key:
+            i -= 1
+        self.children[i].insert(kv_pair)

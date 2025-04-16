@@ -10,6 +10,7 @@ class KeyValuePair(Generic[T]):
         key (T): ペアのキー。 T は比較可能な型である必要がある。
         value (int): ペアの値。
     """
+
     def __init__(self, key: T, value: int) -> None:
         self.key = key
         self.value = value
@@ -27,13 +28,14 @@ class Node(Generic[T]):
         t (int): B木の最小次数 (minimum degree)。各ノードは 최소 t-1 個、最大 2t-1 個のキーを持ちます (ルートノードを除く)。
         is_leaf (bool): このノードが葉ノードであるかどうかを示すフラグ。
     """
+
     def __init__(self, t: int, is_leaf: bool):
         self.items: list[KeyValuePair] = []
-        self.children: list['Node[T]'] = []
+        self.children: list[Node[T]] = []
         self.t = t
         self.is_leaf = is_leaf
 
-    def split_child(self, i: int, y: 'Node[T]') -> None:
+    def split_child(self, i: int, y: "Node[T]") -> None:
         """子ノード を分割します。
 
         このメソッドは、子ノード y が満杯 (2t-1 個のキーを持つ) の場合に呼び出されることを想定している。
@@ -47,15 +49,15 @@ class Node(Generic[T]):
         """
         z: Node = Node(y.t, y.is_leaf)
         middle_kv_pair = y.items[self.t - 1]
-        z.items = y.items[self.t:]
+        z.items = y.items[self.t :]
 
         if not y.is_leaf:
-            z.children = y.children[self.t:]
+            z.children = y.children[self.t :]
 
-        y.items = y.items[:self.t - 1]
+        y.items = y.items[: self.t - 1]
 
         if not y.is_leaf:
-            y.children = y.children[:self.t]
+            y.children = y.children[: self.t]
 
         self.children.insert(i + 1, z)
         self.items.insert(i, middle_kv_pair)

@@ -24,8 +24,8 @@ class Node(Generic[T]):
 
     Attributes:
         items (list[KeyValuePair]): ノードに格納されているキーと値のペアのリスト。キーでソートされています。
-        children (list['Node[T]']): 子ノードのリスト。非葉ノードの場合のみ使用されます。
-        t (int): B木の最小次数 (minimum degree)。各ノードは 최소 t-1 個、最大 2t-1 個のキーを持ちます (ルートノードを除く)。
+        children (list[Node[T]]): 子ノードのリスト。非葉ノードの場合のみ使用されます。
+        t (int): B木の最小次数 (minimum degree)。各ノードは t-1 個、最大 2t-1 個のキーを持ちます (ルートノードを除く)。
         is_leaf (bool): このノードが葉ノードであるかどうかを示すフラグ。
     """
 

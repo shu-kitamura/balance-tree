@@ -131,3 +131,33 @@ def test_node_insert_to_non_leaf_with_split():
     assert len(child1_original.items) == 2
     assert child1_original.items[0].key == 12
     assert child1_original.items[1].key == 15
+
+
+def test_delete_from_leaf():
+    t = 3  # 最小次数 t=3 -> 最小キー数 t-1 = 2
+    node = Node[int](t, True)  # is_leaf = True
+    # 初期状態: キー数が t-1 より多い (4 > 2)
+    node.items = [
+        KeyValuePair(10, 100),
+        KeyValuePair(20, 200),
+        KeyValuePair(30, 300),
+        KeyValuePair(40, 400),
+    ]
+    initial_length = len(node.items)
+
+    node.delete(20)  # 中間の要素を削除
+    assert len(node.items) == initial_length - 1
+    keys1 = [item.key for item in node.items]
+    assert keys1 == [10, 30, 40]  # キーが削除され、順序が維持されているか
+    assert 20 not in keys1  # 削除されたキーが存在しないか
+
+    node.delete(40)  # 端の要素を削除
+    assert len(node.items) == initial_length - 2
+    keys2 = [item.key for item in node.items]
+    assert keys2 == [10, 30]  # キーが削除され、順序が維持されているか
+    assert 40 not in keys2  # 削除されたキーが存在しないか
+
+    node.delete(15)  # 存在しない要素を削除（何もされない）
+    assert len(node.items) == initial_length - 2
+    keys2 = [item.key for item in node.items]
+    assert keys2 == [10, 30]  # キーが削除され、順序が維持されているか

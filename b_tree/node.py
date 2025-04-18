@@ -116,3 +116,11 @@ class Node(Generic[T]):
         while i >= 0 and key < self.items[i].key:
             i -= 1
         return i + 1
+
+    def delete(self, key: T) -> None:
+        """キーを削除するメソッド"""
+        keys = [i.key for i in self.items]
+
+        if key in keys:
+            index = keys.index(key)
+            del self.items[index]
